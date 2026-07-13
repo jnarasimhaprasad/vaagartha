@@ -1,0 +1,178 @@
+/* ============================================================
+   Mahābhārata stream — scene reading page additions.
+   This file assumes ../vagartha-styles/site.css is already loaded
+   for the shared portal tokens (paper/ink/accent/gold, fonts) and
+   the hero-split/hero-left/hero-right/back-link shell. Only the
+   prose-specific rules for a reading page live here.
+   ============================================================ */
+
+/* scene pages get a larger image than the hub/portal — scoped here
+   so it doesn't affect the shared site.css sizing used elsewhere.
+   Also cancel the inherited drop-shadow: this is a full-frame
+   edge-feathered image, not a tight object cutout, so the shadow
+   filter was casting a visible soft rectangular halo around the
+   faint feathered edges instead of letting them dissolve seamlessly. */
+.hero-left img{
+  height: clamp(340px, 56vh, 680px);
+  filter: none !important;
+}
+
+.mobile-hero img{
+  filter: none !important;
+}
+
+/* left panel: scene breadcrumb sits above the image, small and quiet */
+.scene-breadcrumb{
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 clamp(8px, 1.6vh, 14px);
+}
+
+.hero-left .scene-title{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.3rem, 3vh, 1.7rem);
+  color: var(--ink);
+  margin: clamp(8px, 1.6vh, 14px) 0 0;
+  text-align: left;
+}
+
+/* right panel: the prose itself — narrower than the streams list,
+   since a reading column that's too wide is tiring to read */
+.prose{
+  max-width: 620px;
+}
+
+.scene-heading{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3.4vh, 2.1rem);
+  color: var(--ink);
+  margin: 0 0 0.9em;
+}
+
+.prose p{
+  margin: 0 0 1.15em;
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+.prose p:last-child{ margin-bottom: 0; }
+
+/* the told-story register — Appaa's narration of the ancient tale.
+   Italic, with a thin rule down the left edge marking it as a
+   distinct layer, quiet enough not to look like a UI element. */
+.prose p.story-telling{
+  font-style: italic;
+}
+
+/* embedded verse blocks — Sauti's ślokas quoted within the telling.
+   Distinct from ordinary prose: the Devanagari gets the Devanagari
+   font at a deliberate size; the IAST repeat stays serif-italic,
+   quieter, since it's Appaa's own re-saying of the same verse. */
+.prose .verse-devanagari{
+  font-family: var(--dev);
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 2;
+  color: var(--ink);
+  margin: 0 0 1.4em;
+  padding-left: 18px;
+  border-left: 2px solid var(--rule);
+}
+
+.prose .verse-devanagari p{
+  margin: 0 0 1em;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.prose .verse-devanagari p:last-child{ margin-bottom: 0; }
+
+.prose .verse-iast{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--ink-soft);
+  margin: 0 0 1.4em;
+  padding-left: 18px;
+  border-left: 2px solid var(--rule);
+}
+
+.prose .verse-iast p{
+  margin: 0 0 1em;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  font-style: inherit;
+}
+
+.prose .verse-iast p:last-child{ margin-bottom: 0; }
+
+.prose .verse-gloss{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin: -0.6em 0 1.4em;
+}
+
+/* a single Sanskrit word set apart as its own dramatic beat —
+   "Appaa pointed to the next word." / स्कन्धः — not dialogue,
+   just the word itself, given room to land */
+.prose .word-reveal{
+  font-family: var(--dev);
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: var(--accent);
+  text-align: center;
+  margin: 0 0 1.4em;
+}
+
+/* quiet section break between the sub-parts of a long scene —
+   honors the author's own pacing without splitting into pages */
+.prose .section-break{
+  border: none;
+  border-top: 1px solid var(--rule);
+  width: 120px;
+  margin: 2.2em auto;
+}
+
+.scene-nav{
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.scene-nav a{
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.scene-nav a:hover{ color: var(--ink); }
+
+/* the top-of-scene duplicate: same links, but sits right under the
+   heading, so it needs the opposite spacing from the bottom version */
+.scene-nav-top{
+  margin: 0 0 28px;
+  padding: 0 0 20px;
+  border-top: none;
+  border-bottom: 1px solid var(--rule);
+}
