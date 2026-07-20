@@ -23,10 +23,50 @@
 
 .back-link:hover{ color: var(--accent); }
 
+/* replaces the old single back-link on scene pages — two quiet
+   Devanagari destinations (portal home, stream hub) instead of one,
+   same visual slot the old back-link occupied */
+.site-links{
+  position: absolute;
+  top: 28px;
+  left: 72px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--dev);
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  z-index: 2;
+}
+
+.site-links .site-links-arrow{ color: var(--ink-soft); }
+
+.site-links a{
+  color: inherit;
+  text-decoration: none;
+  padding: 6px 4px;
+  margin: -6px -4px;
+}
+
+.site-links a:hover{ color: var(--accent); }
+
+.site-links .wayfinding-sep{ color: var(--rule-strong); }
+
+.mobile-only .site-links{
+  position: static;
+  display: flex;
+  margin: 24px 0 0 24px;
+  padding: 10px 0;
+}
+
 .mobile-only .back-link{
   position: static;
   display: inline-block;
   margin: 24px 0 0 24px;
+  padding: 10px 8px;
+  margin-left: 16px;
+  margin-top: 14px;
 }
 
 /* compact strip merging the back-link and image caption into one
@@ -43,7 +83,8 @@
 }
 
 .mobile-wayfinding .back-link{
-  margin: 0;
+  margin: -10px -8px;
+  padding: 10px 8px;
 }
 
 .mobile-wayfinding .wayfinding-sep{
@@ -53,6 +94,7 @@
 .mobile-wayfinding .wayfinding-caption{
   font-family: var(--dev);
   font-weight: 400;
+  font-style: italic;
   letter-spacing: 0;
   text-transform: none;
   color: var(--ink-soft);
@@ -258,6 +300,10 @@
   padding: 8px 10px;
   border-radius: 4px;
   transition: background-color 0.2s ease;
+}
+
+@media (max-width: 880px){
+  .scene-link{ padding: 14px 10px; }
 }
 
 .scene-link:hover{

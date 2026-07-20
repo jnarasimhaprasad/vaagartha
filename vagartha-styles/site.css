@@ -61,13 +61,16 @@ a{ color: inherit; }
 
 /* ---------- layout switch: PC vs mobile ----------
    Two structurally different markups live in the page;
-   only one is shown at a time, switched at 880px. This is
-   deliberate — landscape and portrait want different shapes,
-   not one layout squeezed to fit both. */
+   only one is shown at a time. Switched on BOTH width and
+   height — a landscape phone can exceed 880px in width while
+   only being ~400px tall, and the PC layout's fixed, non-
+   scrolling left panel assumes real vertical room. Without the
+   height check, a wide-but-short phone would get served the
+   PC layout and have content clipped with no way to scroll. */
 
 .mobile-only{ display: none; }
 
-@media (max-width: 880px){
+@media (max-width: 880px), (max-height: 600px){
   .pc-only{ display: none !important; }
   .mobile-only{ display: block; }
 }
@@ -75,7 +78,7 @@ a{ color: inherit; }
 /* On PC the whole viewport is locked — the left panel (mark,
    image, śloka) never scrolls; only the Streams panel on the
    right scrolls internally, independent of the left side. */
-@media (min-width: 881px){
+@media (min-width: 881px) and (min-height: 601px){
   html, body{ height: 100%; overflow: hidden; }
 
   .pc-only{
@@ -388,7 +391,7 @@ footer.site{
 }
 
 .hero-left img{
-  height: clamp(260px, 44vh, 560px);
+  max-height: clamp(260px, 44vh, 560px);
   width: auto;
   max-width: 100%;
   filter: drop-shadow(0 18px 26px rgba(28,35,51,0.18));
@@ -458,7 +461,7 @@ footer.site{
   justify-content: center;
   background: var(--paper-deep);
   position: relative;
-  padding: 40px 20px;
+  padding: 28px 20px 44px;
 }
 
 .hero-title-label{
@@ -486,6 +489,7 @@ footer.site{
 .mobile-hero img{
   max-height: 62svh;
   width: auto;
+  max-width: 100%;
   filter: drop-shadow(0 16px 24px rgba(28,35,51,0.18));
 }
 
@@ -497,12 +501,12 @@ footer.site{
   font-size: 1.3rem;
   line-height: 1;
   color: var(--ink-soft);
-  animation: cue-bounce 1.8s ease-in-out infinite;
+  animation: cue-fade 2.4s ease-in-out infinite;
 }
 
-@keyframes cue-bounce{
-  0%, 100%{ transform: translate(-50%, 0); opacity: 0.55; }
-  50%{ transform: translate(-50%, 8px); opacity: 1; }
+@keyframes cue-fade{
+  0%, 100%{ opacity: 0.35; }
+  50%{ opacity: 0.9; }
 }
 
 .mobile-content{
@@ -512,7 +516,7 @@ footer.site{
 .mobile-content .wrap{ padding: 0 24px; }
 
 .mobile-content .devanagari{ font-size: 2.6rem; margin-bottom: 4px; }
-.mobile-content .translit{ margin-bottom: 30px; }
+.mobile-content .translit{ margin-bottom: 30px; letter-spacing: 0.26em; }
 
 .mobile-slokas{
   display: flex;
@@ -527,6 +531,8 @@ footer.site{
 
 .mobile-only .streams{ padding-top: 6px; }
 .mobile-only .stream-name{ font-size: 1.35rem; }
+.mobile-only .stream{ padding: 38px 0; }
+.mobile-only .stream:active{ background-color: var(--paper-deep); }
 
 /* ---------- responsive ---------- */
 

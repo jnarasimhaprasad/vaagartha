@@ -13,7 +13,7 @@
    filter was casting a visible soft rectangular halo around the
    faint feathered edges instead of letting them dissolve seamlessly. */
 .hero-left img{
-  height: clamp(340px, 56vh, 680px);
+  max-height: clamp(340px, 56vh, 680px);
   filter: none !important;
 }
 
@@ -61,6 +61,10 @@
   font-size: 1.08rem;
   line-height: 1.8;
   color: var(--ink);
+}
+
+@media (max-width: 880px){
+  .prose p{ line-height: 1.95; }
 }
 
 .prose p:last-child{ margin-bottom: 0; }
@@ -154,11 +158,19 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  font-family: var(--sans);
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  gap: 24px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.92rem;
   color: var(--ink-soft);
+}
+
+@media (max-width: 560px){
+  .scene-nav{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
 }
 
 .scene-nav a{
@@ -168,11 +180,12 @@
 
 .scene-nav a:hover{ color: var(--ink); }
 
-/* the top-of-scene duplicate: same links, but sits right under the
-   heading, so it needs the opposite spacing from the bottom version */
-.scene-nav-top{
-  margin: 0 0 28px;
-  padding: 0 0 20px;
-  border-top: none;
-  border-bottom: 1px solid var(--rule);
+/* a quiet mark at the end of a scene, before navigation begins —
+   a small pause between "the story ended" and "here's the site" */
+.scene-end-mark{
+  text-align: center;
+  color: var(--gold);
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  margin: 44px 0 0;
 }
