@@ -44,7 +44,7 @@
 /* right panel: the prose itself — narrower than the streams list,
    since a reading column that's too wide is tiring to read */
 .prose{
-  max-width: 620px;
+  max-width: 680px;
 }
 
 .scene-heading{
@@ -58,7 +58,7 @@
 
 .prose p{
   margin: 0 0 1.15em;
-  font-size: 1.08rem;
+  font-size: 1.35rem;
   line-height: 1.8;
   color: var(--ink);
 }
@@ -83,7 +83,7 @@
 .prose .verse-devanagari{
   font-family: var(--dev);
   font-weight: 400;
-  font-size: 1.25rem;
+  font-size: 1.55rem;
   line-height: 2;
   color: var(--ink);
   margin: 0 0 1.4em;
@@ -103,7 +103,7 @@
 .prose .verse-iast{
   font-family: var(--serif);
   font-style: italic;
-  font-size: 1.05rem;
+  font-size: 1.28rem;
   line-height: 1.9;
   color: var(--ink-soft);
   margin: 0 0 1.4em;
@@ -124,7 +124,7 @@
 .prose .verse-gloss{
   font-family: var(--serif);
   font-style: italic;
-  font-size: 0.98rem;
+  font-size: 1.2rem;
   line-height: 1.7;
   color: var(--ink-soft);
   margin: -0.6em 0 1.4em;
@@ -136,7 +136,7 @@
 .prose .word-reveal{
   font-family: var(--dev);
   font-weight: 400;
-  font-size: 1.6rem;
+  font-size: 1.9rem;
   color: var(--accent);
   text-align: center;
   margin: 0 0 1.4em;
@@ -165,20 +165,46 @@
   color: var(--ink-soft);
 }
 
-@media (max-width: 560px){
-  .scene-nav{
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-}
-
 .scene-nav a{
   text-decoration: none;
   color: var(--accent);
 }
 
 .scene-nav a:hover{ color: var(--ink); }
+
+/* the fuller end-of-scene block: prev/next, then a second quiet
+   row for back-to-top and the two site destinations — separated
+   from the prev/next row, not crammed into the same line */
+.scene-end-links{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--rule-strong);
+  font-family: var(--dev);
+  font-weight: 400;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.scene-end-links a{
+  text-decoration: none;
+  color: inherit;
+  padding: 6px 4px;
+  margin: -6px -4px;
+}
+
+.scene-end-links a:hover{ color: var(--accent); }
+
+.scene-end-links .wayfinding-sep{ color: var(--rule-strong); }
+
+@media (max-width: 400px){
+  .scene-end-links{
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+}
 
 /* a quiet mark at the end of a scene, before navigation begins —
    a small pause between "the story ended" and "here's the site" */
