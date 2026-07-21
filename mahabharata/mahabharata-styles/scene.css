@@ -1,65 +1,157 @@
 /* ============================================================
    Mahābhārata stream — scene reading page additions.
+   Every segment below has: what it is, and what to change if
+   you want a different result. Nothing here needs touching
+   unless you want to.
    ============================================================ */
 
+
+/* ── SCENE IMAGE (desktop) ───────────────────────────────────
+   What: the artwork in the left panel on a wide screen.
+   Tweak: the middle number in clamp(340px, 56vh, 680px) controls
+   how tall the image tries to be, as a % of screen height.
+   Raise it = bigger image. Lower it = smaller image. The first
+   and last numbers are just safety floors/ceilings — leave them. */
 .hero-left img{
-  max-height: clamp(340px, 56vh, 680px);
+  max-height: clamp(340px, 60vh, 680px);
   filter: none !important;
 }
 
+
+/* ── SCENE IMAGE (mobile) ─────────────────────────────────────
+   What: cancels a drop-shadow effect on the mobile hero image
+   that would otherwise show a faint box around its soft edges.
+   Tweak: nothing here to adjust — leave as is. */
 .mobile-hero img{
   filter: none !important;
 }
 
+
+/* ── BREADCRUMB LABEL ─────────────────────────────────────────
+   What: the small label above the image, e.g.
+   "Ādi Parva · Episode 1 · Scene 3".
+   Tweak: font-size (currently 0.72rem) makes this label bigger
+   or smaller. It's meant to stay small and quiet — raising it a
+   lot will make it compete with the actual scene title below it. */
 .scene-breadcrumb{
   font-family: var(--sans);
-  font-size: 0.72rem;
+  font-size: 0.86rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--gold);
   margin: 0 0 clamp(8px, 1.6vh, 14px);
 }
 
+
+/* ── SCENE TITLE (desktop left panel) ─────────────────────────
+   What: the scene's title under the image, e.g.
+   "Vyāsa Meets Gaṇeśa" — desktop only, sits in the left panel.
+   Tweak: the middle number in clamp(1.3rem, 3vh, 1.7rem) is the
+   one that matters. Raise it for a bigger title, lower it for
+   smaller. This is separate from the heading in the main text
+   column below (.scene-heading) — the two can differ safely. */
 .hero-left .scene-title{
   font-family: var(--serif);
   font-style: italic;
   font-weight: 600;
-  font-size: clamp(1.3rem, 3vh, 1.7rem);
+  font-size: clamp(1.3rem, 8vh, 1.7rem);
   color: var(--ink);
   margin: clamp(8px, 1.6vh, 14px) 0 0;
   text-align: left;
 }
 
+
+/* ── READING COLUMN WIDTH ─────────────────────────────────────
+   What: how wide the block of story text is allowed to get.
+   Tweak: max-width (currently 680px). A narrower column (e.g.
+   560px) is easier to read line-by-line but shows less text per
+   screen. A wider column (e.g. 800px) shows more per screen but
+   can feel harder to track from one line to the next. */
 .prose{
   max-width: 680px;
 }
+
+
+
+
+/* ── SCENE TITLE (repeated as the main heading) ───────────────
+   What: the same scene title, shown again at the top of the
+   actual story text — this is the one both desktop and mobile
+   readers see right before the prose begins.
+   Tweak: the middle number in clamp(1.6rem, 3.4vh, 2.1rem) is
+   the one to change. Raise for a bigger heading, lower for
+   smaller. Independent from .hero-left .scene-title above. */
+
+
+
 
 .scene-heading{
   font-family: var(--serif);
   font-style: italic;
   font-weight: 600;
-  font-size: clamp(1.6rem, 3.4vh, 2.1rem);
+  font-size: clamp(1.6rem, 4.2vh, 2.1rem);
   color: var(--ink);
   margin: 0 0 0.9em;
 }
 
+
+.scene-heading::after{
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--rule-strong);
+  margin: 0.7em auto 0;
+}
+
+
+/* ── MAIN STORY TEXT — the one that matters most ──────────────
+   What: every ordinary paragraph of the story itself. This is
+   the single biggest lever for "does reading feel comfortable."
+   Tweak: font-size (currently 1.5rem) — this is THE number to
+   change if the story text feels too big or too small. Raising
+   it makes every scene's text bigger everywhere at once; nothing
+   else needs to change alongside it.
+   line-height (currently 1.8) controls the space between lines
+   — raise this a little if you raise font-size a lot, so lines
+   don't start crowding into each other. */
 .prose p{
   margin: 0 0 1.15em;
-  font-size: 1.5rem;
+  font-size: 1.36rem;
   line-height: 1.8;
   color: var(--ink);
 }
 
+/* On phones specifically, lines get a touch more breathing room
+   than on desktop — this is intentional, not a mistake. Change
+   the 1.95 here only if you want mobile reading spaced
+   differently from desktop. */
 @media (max-width: 880px){
   .prose p{ line-height: 1.95; }
 }
 
 .prose p:last-child{ margin-bottom: 0; }
 
+
+/* ── TOLD-STORY TEXT (Appaa's narration) ──────────────────────
+   What: marks the paragraphs where Appaa is narrating the
+   ancient tale itself, shown in italics to set it apart from
+   present-moment dialogue with the children.
+   Tweak: nothing here — this only toggles italics on, it
+   doesn't set its own size (it inherits from .prose p above). */
 .prose p.story-telling{
   font-style: italic;
 }
 
+
+/* ── SANSKRIT VERSE (the śloka itself) ─────────────────────────
+   What: the actual Sanskrit verse, in Devanagari script, when
+   Appaa recites one — e.g. दुर्योधनो मन्युमयो महाद्रुमः...
+   This should read as the MOST prominent of the three verse-
+   related pieces below (verse, transliteration, meaning), since
+   it's the real text being quoted.
+   Tweak: font-size (currently 1.7rem) — raise or lower just
+   this verse's size without touching the story text around it. */
 .prose .verse-devanagari{
   font-family: var(--dev);
   font-weight: 400;
@@ -80,6 +172,14 @@
 
 .prose .verse-devanagari p:last-child{ margin-bottom: 0; }
 
+
+/* ── VERSE TRANSLITERATION (same verse, Roman letters) ────────
+   What: the same verse repeated in IAST (e.g. "Duryodhano
+   manyumayo mahādrumaḥ...") — a supporting repeat, meant to
+   read as quieter than the Devanagari original above it.
+   Tweak: font-size (currently 1.4rem) — keep this smaller than
+   verse-devanagari's number above, or the hierarchy between
+   "the verse" and "the same verse spelled out" disappears. */
 .prose .verse-iast{
   font-family: var(--serif);
   font-style: italic;
@@ -101,6 +201,15 @@
 
 .prose .verse-iast p:last-child{ margin-bottom: 0; }
 
+
+/* ── VERSE MEANING (the English translation) ──────────────────
+   What: the plain-English meaning of the verse, e.g. "It means
+   — Duryodhana is a great tree of manyu..." Meant to be the
+   quietest of the three verse pieces — a translation aid, not
+   the verse itself.
+   Tweak: font-size (currently 1.25rem) — keep this the smallest
+   of the three verse-related numbers (devanagari > iast > this)
+   so the meaning reads as support, not the main text. */
 .prose .verse-gloss{
   font-family: var(--serif);
   font-style: italic;
@@ -110,6 +219,16 @@
   margin: -0.6em 0 1.4em;
 }
 
+
+/* ── SINGLE-WORD REVEAL (a dramatic pause on one word) ────────
+   What: used when a single Sanskrit word is shown alone on its
+   own line for effect — e.g. "Appaa pointed to the next word."
+   then just: स्कन्धः — sitting by itself. Meant to be the
+   BIGGEST text on the page when it appears, since it's a
+   deliberate dramatic beat.
+   Tweak: font-size (currently 1.9rem) — keep this bigger than
+   the main story text's size above it, or the "dramatic pause"
+   effect is lost and the word just blends in as normal text. */
 .prose .word-reveal{
   font-family: var(--dev);
   font-weight: 400;
@@ -119,6 +238,13 @@
   margin: 0 0 1.4em;
 }
 
+
+/* ── SECTION BREAK (a quiet pause within a long scene) ────────
+   What: a thin horizontal line used to mark a pause between
+   sub-parts of a long scene, without splitting it into
+   separate pages.
+   Tweak: width (currently 120px) makes the line longer or
+   shorter. margin controls the empty space above/below it. */
 .prose .section-break{
   border: none;
   border-top: 1px solid var(--rule);
@@ -126,6 +252,13 @@
   margin: 2.2em auto;
 }
 
+
+/* ── PREVIOUS / NEXT LINKS ─────────────────────────────────────
+   What: the "← Previous" and "Next →" links after the story
+   ends, letting a reader move to the neighboring scene.
+   Tweak: font-size (currently 0.92rem) makes these links bigger
+   or smaller. gap (currently 24px) controls the space between
+   the two links. */
 .scene-nav{
   margin-top: 48px;
   padding-top: 24px;
@@ -136,7 +269,7 @@
   gap: 24px;
   font-family: var(--serif);
   font-style: italic;
-  font-size: 0.92rem;
+  font-size: 1.60rem;
   color: var(--ink-soft);
 }
 
@@ -147,6 +280,13 @@
 
 .scene-nav a:hover{ color: var(--ink); }
 
+
+/* ── END-OF-SCENE LINKS (Top / वागर्थ / महाभारतम्) ────────────
+   What: the row of three quiet links right at the very end of
+   the page, below Previous/Next.
+   Tweak: font-size (currently 0.88rem) makes this whole row
+   bigger or smaller. gap (currently 20px) controls spacing
+   between the three links. */
 .scene-end-links{
   display: flex;
   justify-content: center;
@@ -156,7 +296,7 @@
   border-top: 1px dashed var(--rule-strong);
   font-family: var(--dev);
   font-weight: 400;
-  font-size: 0.88rem;
+  font-size: 1.2rem;
   color: var(--ink-soft);
 }
 
@@ -171,6 +311,10 @@
 
 .scene-end-links .wayfinding-sep{ color: var(--rule-strong); }
 
+/* On very narrow phones, the end-links row is allowed to wrap
+   onto a second line instead of squeezing together. Tweak the
+   400px number only if it's wrapping on phones that shouldn't
+   need to, or not wrapping on ones that do. */
 @media (max-width: 400px){
   .scene-end-links{
     flex-wrap: wrap;
@@ -178,6 +322,14 @@
   }
 }
 
+
+/* ── END-OF-SCENE MARK (the small "·") ────────────────────────
+   What: a single quiet dot marking "the story just ended,"
+   sitting between the last line of prose and the Previous/Next
+   links, so the ending gets a small pause before navigation.
+   Tweak: font-size (currently 1rem) makes the dot bigger or
+   smaller. letter-spacing (currently 0.3em) stretches it wider
+   if you're using more than one character here. */
 .scene-end-mark{
   text-align: center;
   color: var(--gold);
