@@ -117,7 +117,7 @@
    don't start crowding into each other. */
 .prose p{
   margin: 0 0 1.15em;
-  font-size: 1.36rem;
+  font-size: 1.48rem;
   line-height: 1.8;
   color: var(--ink);
 }
