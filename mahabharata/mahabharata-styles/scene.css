@@ -126,9 +126,15 @@
    than on desktop — this is intentional, not a mistake. Change
    the 1.95 here only if you want mobile reading spaced
    differently from desktop. */
+
 @media (max-width: 880px){
-  .prose p{ line-height: 1.95; }
+  .prose p{
+    line-height: 1.95;
+    font-size: 1.7rem;
+  }
 }
+
+
 
 .prose p:last-child{ margin-bottom: 0; }
 
