@@ -258,7 +258,7 @@
   font-family: var(--serif);
   font-style: italic;
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: 1.64rem;
   color: var(--ink);
   margin: 0;
 }
@@ -356,7 +356,7 @@
   font-family: var(--serif);
   font-style: italic;
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.32rem;
   color: var(--ink);
 }
 
@@ -385,7 +385,7 @@
 .episode-desc{
   margin: 0 0 12px;
   max-width: 560px;
-  font-size: 0.98rem;
+  font-size: 1.08rem;
   color: var(--ink-soft);
 }
 
