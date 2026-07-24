@@ -3,9 +3,12 @@
    This is the LIGHT identity of the home/portal layer, shared
    by the portal home page AND every Mahābhārata scene/hub page
    (which layer their own stylesheet on top of this one).
-   Every segment below has: what it is, and what to change if
-   you want a different result. Nothing here needs touching
-   unless you want to.
+   Every segment below has: what it is, and a safe range to stay
+   within if you adjust it — not "currently X," since that note
+   goes stale the moment you change it. The range is the number
+   below which text starts feeling too small to read comfortably,
+   and above which it starts looking odd (crowding its neighbors,
+   overflowing its space, or losing its place in the hierarchy).
    ============================================================ */
 
 
@@ -15,7 +18,9 @@
    (e.g. var(--gold)) instead of repeating the raw value. This is
    the single most powerful place in the whole project — change
    one line here and it updates everywhere that color is used.
-   Tweak: change any hex code to shift that color site-wide. */
+   Range: not applicable — colors don't have a "too small/too
+   big" range, just change any hex code to shift that color
+   site-wide. */
 :root{
   --paper:        #f7f2e6;   /* warm unbleached paper, not AI-default cream */
   --paper-deep:   #efe4cc;   /* recessed panels, hover fields */
@@ -36,8 +41,10 @@
    What: universal resets and the page's default background,
    text color, and base font — applies everywhere unless a more
    specific rule overrides it.
-   Tweak: line-height (currently 1.6) here is the DEFAULT for any
-   text that doesn't have its own line-height set elsewhere. */
+   Range: line-height (currently 1.6) — the DEFAULT for any text
+   without its own line-height — is safe between 1.4 and 1.8.
+   Below 1.4 default text feels cramped; above 1.8 it starts
+   feeling loose even where no reading-comfort rule applies. */
 *{ box-sizing: border-box; }
 
 html{ scroll-behavior: smooth; overflow-x: hidden; }
@@ -59,10 +66,10 @@ body{
    What: two extremely faint colored gradients layered behind
    everything, giving the paper background a little depth
    instead of being one flat color. No image file — pure CSS.
-   Tweak: the 0.02 opacity values are intentionally almost
-   invisible — raise them slightly (e.g. 0.04) for a more
-   noticeable texture, but going much further starts to look
-   like a stain rather than paper grain. */
+   Range: the opacity values (currently 0.02) are safe between
+   0.01 and 0.05. Below 0.01 the texture is invisible, so there's
+   no point having it; above 0.05 it stops reading as paper grain
+   and starts looking like a stain. */
 body::before{
   content: "";
   position: fixed;
@@ -79,8 +86,9 @@ a{ color: inherit; }
 /* ── CONTENT WRAPPER ───────────────────────────────────────────
    What: a general-purpose centered column, used in a few places
    that aren't part of the desktop split-panel layout.
-   Tweak: max-width (currently 760px) changes how wide that
-   column is allowed to get. */
+   Range: max-width (currently 760px) is safe between 600px and
+   900px — narrower and text wraps too often; wider and it stops
+   reading as a focused column. */
 .wrap{
   max-width: 760px;
   margin: 0 auto;
@@ -97,10 +105,12 @@ a{ color: inherit; }
    both width AND height on purpose — a phone held sideways
    (landscape) can be wider than 880px but still very short, and
    the desktop layout assumes real vertical room to work with.
-   Tweak: 880px is the width cutoff, 600px is the height cutoff.
-   Raise 880px if the desktop layout should kick in only on
-   bigger screens; raise 600px if short-but-wide windows should
-   still get the mobile layout more often. */
+   Range: the width cutoff (880px) is safe between 760px and
+   1000px — much lower and real tablets get squeezed into the
+   desktop layout; much higher and some laptops get the mobile
+   layout unnecessarily. The height cutoff (600px) is safe
+   between 480px and 700px, for the same reasoning applied to
+   landscape phones and short windows. */
 .mobile-only{ display: none; }
 
 @media (max-width: 880px), (max-height: 600px){
@@ -113,8 +123,8 @@ a{ color: inherit; }
    never scrolls — only the RIGHT panel (the streams list, or a
    scene's prose) scrolls internally, independent of the left
    side staying still.
-   Tweak: nothing here needs adjusting for normal use — this is
-   structural, not a styling choice. */
+   Range: not applicable — this is structural, not a sizing
+   choice, and shouldn't need adjusting for normal use. */
 @media (min-width: 881px) and (min-height: 601px){
   html, body{ height: 100%; overflow: hidden; }
 
@@ -160,9 +170,9 @@ a{ color: inherit; }
    a bolder version of it, which corrupts conjunct letters (like
    र्थ rendering wrong). This forces every Devanagari element
    listed here to always use the real, un-faked weight.
-   Tweak: don't remove this — if a NEW Devanagari element is
-   added elsewhere in the site and its letters look subtly wrong
-   or broken, add its class name to this list. */
+   Range: not applicable — don't remove this. If a NEW Devanagari
+   element is added elsewhere in the site and its letters look
+   subtly wrong or broken, add its class name to this list. */
 .brand-mini, .devanagari, .epigraph,
 .stream-dev, .hero-right-footer,
 .hero-left .brand-devanagari, .sloka{
@@ -237,8 +247,9 @@ header.site .wrap{
    across the site — desktop portal home and hub page both use
    more specific versions of this (see .hero-left .brand-devanagari
    and .mbh-heading in hub.css), but this is the shared default.
-   Tweak: this rule itself has no font-size — sizing is set by
-   whichever more specific rule applies on top of it. */
+   Range: not applicable — this rule itself has no font-size;
+   sizing is set by whichever more specific rule applies on top
+   of it. */
 .devanagari{
   font-family: var(--dev);
   font-weight: 400;
@@ -248,10 +259,12 @@ header.site .wrap{
 
 /* ── TAGLINE (e.g. "Vāgartha · word and meaning") ──────────────
    What: the small uppercase tagline under a wordmark.
-   Tweak: font-size (currently 0.8rem) changes its size.
-   letter-spacing (currently 0.32em) is quite wide by design —
-   the mobile-specific override further down this file (search
-   ".mobile-content .translit") tightens it for small screens. */
+   Range: font-size 0.65rem to 0.95rem. letter-spacing (currently
+   0.32em) is quite wide by design — safe between 0.2em and
+   0.36em; narrower loses the "spaced-out label" feel, wider
+   starts making individual words hard to read as one unit. The
+   mobile-specific override further down this file (search
+   ".mobile-content .translit") tightens the spacing for phones. */
 .translit{
   font-family: var(--sans);
   font-size: 0.8rem;
@@ -320,7 +333,7 @@ header.site .wrap{
 }
 
 /* ── "STREAMS" SECTION LABEL ───────────────────────────────────
-   Tweak: font-size (currently 0.76rem) changes this small label. */
+   Range: 0.65rem to 0.9rem. */
 .streams-label{
   font-family: var(--sans);
   font-size: 0.76rem;
@@ -331,10 +344,10 @@ header.site .wrap{
 }
 
 /* ── ONE STREAM'S CARD/ROW ─────────────────────────────────────
-   Tweak: padding (currently 30px top/bottom) controls how tall
-   each stream's row is — the desktop and mobile-specific
-   overrides further down this file adjust this differently for
-   each layout. */
+   Range: padding (currently 30px top/bottom) is safe between
+   16px and 44px — the desktop and mobile-specific overrides
+   further down this file adjust this differently for each
+   layout, so check those too if you change this base value. */
 .stream{
   display: block;
   padding: 30px 0;
@@ -356,8 +369,8 @@ header.site .wrap{
 }
 
 /* ── STREAM NAME (e.g. "Mahābhārata — A Retelling") ───────────
-   Tweak: font-size (currently 1.7rem) here is the base size —
-   desktop and mobile each have their own override further down. */
+   Range: 1.4rem to 2.2rem here as the base size — desktop and
+   mobile each have their own override further down. */
 .stream-name{
   font-size: 1.7rem;
   font-weight: 600;
@@ -366,7 +379,8 @@ header.site .wrap{
 }
 
 /* ── STREAM NAME, DEVANAGARI (e.g. "महाभारतम्") ─────────────────
-   Tweak: font-size (currently 1.05rem). */
+   Range: 0.85rem to 1.3rem — keep noticeably smaller than
+   .stream-name beside it. */
 .stream-dev{
   font-family: var(--dev);
   font-size: 1.05rem;
@@ -375,8 +389,9 @@ header.site .wrap{
 }
 
 /* ── STREAM DESCRIPTION TEXT ────────────────────────────────────
-   Tweak: font-size (currently 1.02rem) changes the short
-   description paragraph under each stream's name. */
+   Range: 0.9rem to 1.2rem — below that it's hard to read as a
+   supporting description; above it starts competing with the
+   stream's own name above it. */
 .stream-desc{
   margin: 10px 0 0;
   max-width: 560px;
@@ -385,8 +400,8 @@ header.site .wrap{
 }
 
 /* ── STREAM META LINE (e.g. "Virāṭa Parva · in progress") ──────
-   Tweak: font-size (currently 0.74rem) changes this small line,
-   including the "Enter →" text at its end. */
+   Range: 0.6rem to 0.85rem, including the "Enter →" text at its
+   end. */
 .stream-meta{
   margin-top: 14px;
   display: flex;
@@ -418,7 +433,7 @@ header.site .wrap{
 /* ── "MORE STREAMS..." INVITE TEXT ─────────────────────────────
    What: the italic line inviting readers to expect future
    streams beyond Mahābhārata.
-   Tweak: font-size (currently 0.85rem) changes its size. */
+   Range: 0.7rem to 1rem. */
 .invite{
   padding: 26px 0 0;
   color: var(--ink-soft);
@@ -434,7 +449,7 @@ header.site .wrap{
 /* ── PORTAL WORDMARK FOOTER (desktop right panel) ─────────────
    What: the small "वागर्थ" that appears at the very bottom of
    the desktop Streams panel, after the last stream card.
-   Tweak: font-size (currently 1rem) changes its size. */
+   Range: 0.8rem to 1.3rem. */
 .hero-right-footer{
   padding: 30px 0 40px;
   color: var(--ink-soft);
@@ -446,7 +461,7 @@ header.site .wrap{
 /* ── PAGE FOOTER (mobile) ──────────────────────────────────────
    What: the small "वागर्थ" footer at the very bottom of every
    mobile page, after all other content.
-   Tweak: font-size (currently 0.76rem) changes its size. */
+   Range: 0.65rem to 0.9rem. */
 footer.site{
   padding: 30px 0 50px;
   text-align: center;
@@ -479,14 +494,15 @@ footer.site{
    What: the core desktop layout — a grid with a narrower left
    column (image + wordmark) and a wider right column (the
    actual content: streams list, or a scene's prose).
-   Tweak: grid-template-columns (currently minmax(280px, 1fr)
-   2fr) sets the ratio — right now roughly 1:2 (left panel gets
-   about a third, right panel about two-thirds). To make the
-   left panel wider, raise the "1fr" number (e.g. "1.3fr"). The
-   "minmax(280px, ...)" part is a floor — the left panel will
-   never shrink narrower than 280px even on a smaller desktop
-   window. min-height (74vh) sets how tall the whole split area
-   is, as a percentage of the browser window's height. */
+   Range: the ratio (currently roughly 1:2 via minmax(280px, 1fr)
+   2fr) is safe with the "1fr" number anywhere between 0.8fr and
+   1.5fr — lower and the left panel feels cramped for the image;
+   higher and it starts crowding into the right panel's reading
+   space. The "minmax(280px, ...)" part is a floor — the left
+   panel will never shrink narrower than that even on a smaller
+   desktop window; keep it above 240px or the image has nowhere
+   comfortable to sit. min-height (74vh) sets how tall the whole
+   split area is — safe between 60vh and 85vh. */
 .hero-split{
   display: grid;
   grid-template-columns: minmax(280px, 1fr) 2fr;
@@ -501,7 +517,7 @@ footer.site{
    holds the Ardhanārīśvara image and the Kālidāsa verse; on a
    scene page it holds that scene's image, breadcrumb, and
    title.
-   Tweak: justify-content (currently "center") vertically
+   Range: justify-content (currently "center") vertically
    centers everything in this panel as ONE block. This means a
    longer piece of content (e.g. a long scene title that wraps
    to two lines) makes the whole block taller, which shifts
@@ -512,9 +528,10 @@ footer.site{
    making that gap consistent across every scene regardless of
    title length — a bigger visual change (content sits nearer
    the top instead of centered), but a more predictable one.
-   padding — the FIRST number, clamp(16px, ...), is the top
-   padding's floor; raising it guarantees more breathing room
-   at the top even on short windows. */
+   padding — the first number (currently a clamp with a 16px
+   floor) is safe between 12px and 60px; raising the floor
+   guarantees more breathing room at the top even on short
+   windows. */
 .hero-left{
   display: flex;
   flex-direction: column;
@@ -531,9 +548,9 @@ footer.site{
 
 /* ── LEFT PANEL IMAGE (portal home only — scene pages override
    this size in scene.css instead) ────────────────────────────
-   Tweak: the middle number in clamp(260px, 44vh, 560px) is the
-   one to change for a bigger/smaller image on the portal home
-   specifically. */
+   Range: the middle vh number is safe between 30vh and 55vh —
+   below that the image loses presence; above it starts
+   crowding the wordmark and verse beneath it in the same panel. */
 .hero-left img{
   max-height: clamp(260px, 44vh, 560px);
   width: auto;
@@ -542,7 +559,7 @@ footer.site{
 }
 
 /* ── "वागर्थ" WORDMARK (portal home, desktop) ───────────────────
-   Tweak: the middle number in clamp(2rem, 5.2vh, 3.4rem). */
+   Range: the middle vh number is safe between 4vh and 6.5vh. */
 .hero-left .brand-devanagari{
   font-family: var(--dev);
   font-size: clamp(2rem, 5.2vh, 3.4rem);
@@ -557,9 +574,10 @@ footer.site{
 
 /* ── KĀLIDĀSA VERSE (portal home, desktop left panel) ──────────
    What: the "वागर्थाविव संपृक्तौ..." verse under the wordmark.
-   Tweak: font-size in .sloka-kalidasa below (middle number of
-   the clamp) changes the verse's own size. line-height here
-   (1.85) controls space between its two lines. */
+   Range: the middle vh number in .sloka-kalidasa below is safe
+   between 1.8vh and 3vh. line-height here (currently 1.85) is
+   safe between 1.6 and 2.1 — controls the space between the
+   verse's two lines. */
 .sloka{
   font-family: var(--dev);
   line-height: 1.85;
@@ -576,7 +594,7 @@ footer.site{
 }
 
 /* ── VERSE SOURCE CITATION (e.g. "Kālidāsa · Raghuvaṁśa 1.1") ──
-   Tweak: the middle number in clamp(0.6rem, 1.2vh, 0.68rem). */
+   Range: the middle vh number is safe between 1vh and 1.5vh. */
 .sloka-source{
   display: block;
   margin-top: clamp(4px, 1vh, 10px);
@@ -591,7 +609,10 @@ footer.site{
 /* ── RIGHT PANEL (streams list, or a scene's prose) ────────────
    What: the wider right-hand column that scrolls independently
    on desktop (see the locked-panel section near the top of this
-   file). Padding here sets the panel's own inner margins. */
+   file). Padding here sets the panel's own inner margins.
+   Range: padding values are safe between 40px and 100px on each
+   side — tighter and content feels cramped against the panel
+   edge; looser and it starts wasting the panel's own width. */
 .hero-right{
   display: flex;
   flex-direction: column;
@@ -617,11 +638,12 @@ footer.site{
    What: the full-height image section at the very top of every
    mobile page — the portal home, the hub page, and every scene
    page all use this same structure.
-   Tweak: min-height (100svh) makes this section always at least
-   one full screen tall. padding controls breathing room around
-   its contents — the first number (28px) is TOP padding, the
-   last (44px) is BOTTOM padding; raise either independently for
-   more room on that side specifically. */
+   Range: min-height (100svh) makes this section always at least
+   one full screen tall — leave that alone. padding controls
+   breathing room around its contents: the first number (top)
+   is safe between 16px and 48px; the last (bottom) is safe
+   between 24px and 60px. Raise either independently for more
+   room on that side specifically. */
 .mobile-hero{
   min-height: 100svh;
   display: flex;
@@ -636,9 +658,9 @@ footer.site{
 /* ── TITLE SHOWN ABOVE THE MOBILE IMAGE ────────────────────────
    What: the wordmark/breadcrumb/title text sitting above the
    image, visible immediately without scrolling.
-   Tweak: font-size (currently 1.6rem) here is for the wordmark
-   itself (e.g. "वागर्थ" or "महाभारतम्") on the home/hub pages —
-   scene pages use the more specific rule below instead. */
+   Range: 1.2rem to 2rem for the wordmark itself (e.g. "वागर्थ"
+   or "महाभारतम्") on the home/hub pages — scene pages use the
+   more specific rule below instead. */
 .hero-title-label{
   font-family: var(--dev);
   font-weight: 400;
@@ -655,8 +677,7 @@ footer.site{
 /* ── SCENE TITLE ABOVE THE MOBILE IMAGE ────────────────────────
    What: on a scene page specifically, this is the actual scene
    title (e.g. "Vyāsa Meets Gaṇeśa") shown above the image.
-   Tweak: font-size (currently 1.3rem) changes just this title's
-   size, independent of the breadcrumb above it. */
+   Range: 1rem to 1.6rem, independent of the breadcrumb above it. */
 .hero-title-label .scene-title{
   font-family: var(--serif);
   font-style: italic;
@@ -667,9 +688,11 @@ footer.site{
 }
 
 /* ── MOBILE HERO IMAGE ──────────────────────────────────────────
-   Tweak: max-height (currently 62svh) — raise for a bigger
-   image, lower for smaller. svh means "percent of the visible
-   screen height," so this scales naturally across phone sizes. */
+   Range: max-height (currently 62svh) is safe between 45svh and
+   75svh — below that the image loses its full-bleed presence;
+   above it starts crowding the title above and scroll cue below.
+   svh means "percent of the visible screen height," so this
+   scales naturally across phone sizes. */
 .mobile-hero img{
   max-height: 62svh;
   width: auto;
@@ -680,10 +703,10 @@ footer.site{
 /* ── SCROLL CUE (the fading ↓ at the bottom of the hero) ───────
    What: the quiet downward arrow hinting there's more to see
    below, with a slow fade in/out animation.
-   Tweak: font-size (currently 1.3rem) changes the arrow's size.
-   The animation speed is set in the @keyframes rule just below
-   — 2.4s is how long one fade cycle takes; raise for a slower,
-   calmer pulse, lower for a faster one. */
+   Range: font-size 1rem to 1.6rem. The animation speed
+   (currently 2.4s per fade cycle) is safe between 1.8s and 3.5s
+   — faster starts feeling agitated rather than calm; slower
+   starts feeling like it's stalled rather than pulsing. */
 .scroll-cue{
   position: absolute;
   bottom: 26px;
@@ -706,8 +729,9 @@ footer.site{
    tagline, verse, and image caption on the portal home and hub
    pages specifically (scene pages don't use this — they go
    straight from the hero into .site-links, see hub.css).
-   Tweak: padding (46px top) controls the gap between the hero
-   image ending and this content beginning. */
+   Range: padding (currently 46px top) is safe between 28px and
+   70px — controls the gap between the hero image ending and
+   this content beginning. */
 .mobile-content{
   padding: 46px 0 10px;
 }
@@ -726,15 +750,17 @@ footer.site{
    file) specifically for mobile — tighter letter-spacing, since
    the very wide default spacing was hard to read at phone
    widths.
-   Tweak: letter-spacing (currently 0.26em, vs. 0.32em on
-   desktop) — raise for wider spacing, lower for tighter. */
+   Range: letter-spacing 0.15em to 0.3em — narrower than 0.15em
+   loses the "spaced label" character entirely; wider than 0.3em
+   starts drifting back toward the desktop spacing this override
+   exists to avoid. */
 .mobile-content .translit{ margin-bottom: 30px; letter-spacing: 0.26em; }
 
 /* ── VERSE BLOCK (portal home, mobile) ─────────────────────────
    What: the Kālidāsa verse and its gloss, mobile-sized.
-   Tweak: font-size in .mobile-slokas .sloka (currently 1rem)
-   and .mobile-slokas .gloss (currently 0.92rem) change each
-   piece independently. */
+   Range: .mobile-slokas .sloka font-size 0.85rem to 1.2rem;
+   .mobile-slokas .gloss font-size 0.8rem to 1.05rem — keep the
+   gloss noticeably smaller than the verse above it. */
 .mobile-slokas{
   display: flex;
   flex-direction: column;
@@ -750,10 +776,12 @@ footer.site{
 /* ── STREAMS LIST, MOBILE-SPECIFIC SIZING ───────────────────────
    What: mobile-only overrides for the stream cards on the
    portal home page.
-   Tweak: .stream padding (currently 38px top/bottom) is the
-   tap-friendly height of each card. .stream:active adds a very
-   brief, subtle background tint the instant you tap a card —
-   confirmation feedback, not an animation that plays on its own. */
+   Range: .stream padding (currently 38px top/bottom) is the
+   tap-friendly height of each card — safe between 26px and 50px.
+   .stream:active adds a very brief, subtle background tint the
+   instant you tap a card — confirmation feedback, not an
+   animation that plays on its own; don't turn this into a
+   lasting color change. */
 .mobile-only .streams{ padding-top: 6px; }
 .mobile-only .stream-name{ font-size: 1.35rem; }
 .mobile-only .stream{ padding: 38px 0; }
@@ -764,9 +792,9 @@ footer.site{
    What: on especially narrow phones, a stream card's name and
    Devanagari label stack vertically instead of trying to fit
    side by side.
-   Tweak: 560px is the width this kicks in below — lower it if
-   only very small phones should stack, raise it if you want
-   more phones to get the stacked treatment. */
+   Range: the trigger width (currently 560px) is safe between
+   440px and 640px — lower and only very small phones get the
+   stacked treatment; higher and more phones do. */
 @media (max-width: 560px){
   .stream-top{ flex-direction: column; gap: 4px; }
   .stream-name{ font-size: 1.4rem; }
@@ -790,8 +818,8 @@ footer.site{
    What: the visible outline shown around a link when someone is
    navigating the site with a keyboard (Tab key) instead of a
    mouse/touch — an accessibility essential, don't remove.
-   Tweak: outline-offset (currently 3px) is the gap between the
-   link and its outline. */
+   Range: outline-offset (currently 3px) is safe between 1px and
+   6px — the gap between the link and its outline. */
 a:focus-visible{
   outline: 2px solid var(--accent);
   outline-offset: 3px;

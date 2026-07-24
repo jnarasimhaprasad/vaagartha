@@ -1,17 +1,22 @@
 /* ============================================================
    Mahābhārata stream — scene reading page additions.
-   Every segment below has: what it is, and what to change if
-   you want a different result. Nothing here needs touching
-   unless you want to.
+   Every segment below has: what it is, and a safe range to stay
+   within if you adjust it — not "currently X," since that note
+   goes stale the moment you change it. The range is the number
+   below which text starts feeling too small to read comfortably,
+   and above which it starts looking odd (crowding its neighbors,
+   overflowing its space, or losing its place in the hierarchy).
    ============================================================ */
 
 
 /* ── SCENE IMAGE (desktop) ───────────────────────────────────
    What: the artwork in the left panel on a wide screen.
-   Tweak: the middle number in clamp(340px, 56vh, 680px) controls
-   how tall the image tries to be, as a % of screen height.
-   Raise it = bigger image. Lower it = smaller image. The first
-   and last numbers are just safety floors/ceilings — leave them. */
+   Range: the middle number in the clamp() is a % of screen
+   height. Safe between 40vh and 70vh — below 40vh the image
+   loses presence next to the text; above 70vh it starts
+   crowding the breadcrumb and title beneath it. The first and
+   last numbers (340px, 680px) are just safety floors/ceilings —
+   leave those alone. */
 .hero-left img{
   max-height: clamp(340px, 60vh, 680px);
   filter: none !important;
@@ -21,7 +26,7 @@
 /* ── SCENE IMAGE (mobile) ─────────────────────────────────────
    What: cancels a drop-shadow effect on the mobile hero image
    that would otherwise show a faint box around its soft edges.
-   Tweak: nothing here to adjust — leave as is. */
+   Range: nothing here to adjust — leave as is. */
 .mobile-hero img{
   filter: none !important;
 }
@@ -30,9 +35,9 @@
 /* ── BREADCRUMB LABEL ─────────────────────────────────────────
    What: the small label above the image, e.g.
    "Ādi Parva · Episode 1 · Scene 3".
-   Tweak: font-size (currently 0.72rem) makes this label bigger
-   or smaller. It's meant to stay small and quiet — raising it a
-   lot will make it compete with the actual scene title below it. */
+   Range: 0.65rem to 1rem. Below 0.65rem it's hard to read at a
+   glance; above 1rem it stops reading as a quiet label and
+   starts competing with the actual scene title below it. */
 .scene-breadcrumb{
   font-family: var(--sans);
   font-size: 0.86rem;
@@ -46,10 +51,12 @@
 /* ── SCENE TITLE (desktop left panel) ─────────────────────────
    What: the scene's title under the image, e.g.
    "Vyāsa Meets Gaṇeśa" — desktop only, sits in the left panel.
-   Tweak: the middle number in clamp(1.3rem, 3vh, 1.7rem) is the
-   one that matters. Raise it for a bigger title, lower it for
-   smaller. This is separate from the heading in the main text
-   column below (.scene-heading) — the two can differ safely. */
+   Range: the middle number (currently a vh value) is safe
+   between 2.5vh and 4.5vh. Below that it feels like an
+   afterthought under the image; above it starts crowding the
+   image above or wrapping awkwardly in the narrow left column.
+   This is separate from .scene-heading below — the two can
+   differ safely. */
 .hero-left .scene-title{
   font-family: var(--serif);
   font-style: italic;
@@ -63,28 +70,22 @@
 
 /* ── READING COLUMN WIDTH ─────────────────────────────────────
    What: how wide the block of story text is allowed to get.
-   Tweak: max-width (currently 680px). A narrower column (e.g.
-   560px) is easier to read line-by-line but shows less text per
-   screen. A wider column (e.g. 800px) shows more per screen but
-   can feel harder to track from one line to the next. */
+   Range: 560px to 800px. Below 560px, lines wrap too often and
+   reading feels choppy; above 800px, your eye has to travel too
+   far to find the start of the next line. */
 .prose{
   max-width: 680px;
 }
-
-
 
 
 /* ── SCENE TITLE (repeated as the main heading) ───────────────
    What: the same scene title, shown again at the top of the
    actual story text — this is the one both desktop and mobile
    readers see right before the prose begins.
-   Tweak: the middle number in clamp(1.6rem, 3.4vh, 2.1rem) is
-   the one to change. Raise for a bigger heading, lower for
-   smaller. Independent from .hero-left .scene-title above. */
-
-
-
-
+   Range: the middle vh number is safe between 3vh and 5vh.
+   Below 3vh it doesn't read as a heading at all; above 5vh it
+   starts pushing the story's first line too far down the page.
+   Independent from .hero-left .scene-title above. */
 .scene-heading{
   font-family: var(--serif);
   font-style: italic;
@@ -94,7 +95,12 @@
   margin: 0 0 0.9em;
 }
 
-
+/* ── HEADING UNDERLINE ─────────────────────────────────────────
+   What: the short quiet line under the scene title, closing the
+   symmetry with the opening dot-and-line mark above it.
+   Range: width 30px to 60px — shorter reads as a stray mark
+   rather than a deliberate rule; much wider starts looking like
+   a full divider instead of a small flourish under the title. */
 .scene-heading::after{
   content: "";
   display: block;
@@ -108,13 +114,13 @@
 /* ── MAIN STORY TEXT — the one that matters most ──────────────
    What: every ordinary paragraph of the story itself. This is
    the single biggest lever for "does reading feel comfortable."
-   Tweak: font-size (currently 1.5rem) — this is THE number to
-   change if the story text feels too big or too small. Raising
-   it makes every scene's text bigger everywhere at once; nothing
-   else needs to change alongside it.
-   line-height (currently 1.8) controls the space between lines
-   — raise this a little if you raise font-size a lot, so lines
-   don't start crowding into each other. */
+   Range: 1.1rem to 1.6rem on desktop. Below 1.1rem it strains
+   the eye on a screen at normal reading distance; above 1.6rem
+   individual words start feeling oversized and lines wrap too
+   often even in the 680px column above.
+   line-height range: 1.6 to 2.0 — below 1.6 lines feel cramped
+   against each other; above 2.0 consecutive lines start feeling
+   disconnected, like separate fragments rather than one flow. */
 .prose p{
   margin: 0 0 1.15em;
   font-size: 1.26rem;
@@ -122,11 +128,15 @@
   color: var(--ink);
 }
 
-/* On phones specifically, lines get a touch more breathing room
-   than on desktop — this is intentional, not a mistake. Change
-   the 1.95 here only if you want mobile reading spaced
-   differently from desktop. */
-
+/* ── MOBILE READING SIZE ────────────────────────────────────────
+   What: phones get their own font-size and line-height,
+   intentionally larger/looser than desktop — this is deliberate,
+   not a mistake, since a phone is usually held closer to the eye
+   but has far less width to work with.
+   Range: font-size 1.3rem to 1.9rem — below 1.3rem it loses the
+   "easier on a phone" benefit this override exists for; above
+   1.9rem lines wrap too often on a narrow screen.
+   line-height 1.8 to 2.1 for the same reasons as desktop above. */
 @media (max-width: 880px){
   .prose p{
     line-height: 1.95;
@@ -140,7 +150,7 @@
    What: marks the paragraphs where Appaa is narrating the
    ancient tale itself, shown in italics to set it apart from
    present-moment dialogue with the children.
-   Tweak: nothing here — this only toggles italics on, it
+   Range: nothing here — this only toggles italics on, it
    doesn't set its own size (it inherits from .prose p above). */
 .prose p.story-telling{
   font-style: italic;
@@ -150,15 +160,18 @@
 /* ── SANSKRIT VERSE (the śloka itself) ─────────────────────────
    What: the actual Sanskrit verse, in Devanagari script, when
    Appaa recites one — e.g. दुर्योधनो मन्युमयो महाद्रुमः...
-   This should read as the MOST prominent of the three verse-
-   related pieces below (verse, transliteration, meaning), since
-   it's the real text being quoted.
-   Tweak: font-size (currently 1.7rem) — raise or lower just
-   this verse's size without touching the story text around it. */
+   This MUST stay the largest of the three verse-related pieces
+   below (verse, transliteration, meaning), since it's the real
+   text being quoted — the other two support it, they don't
+   replace it.
+   Range: 1.4rem to 1.9rem, and always at least 0.1rem larger
+   than whatever .verse-iast below is set to. Below 1.4rem the
+   verse loses its weight as the centerpiece; above 1.9rem it
+   starts overflowing the narrow indented verse block. */
 .prose .verse-devanagari{
   font-family: var(--dev);
   font-weight: 400;
-  font-size: 1.36rem;
+  font-size: 1.5rem;
   line-height: 2;
   color: var(--ink);
   margin: 0 0 1.4em;
@@ -180,13 +193,17 @@
    What: the same verse repeated in IAST (e.g. "Duryodhano
    manyumayo mahādrumaḥ...") — a supporting repeat, meant to
    read as quieter than the Devanagari original above it.
-   Tweak: font-size (currently 1.4rem) — keep this smaller than
-   verse-devanagari's number above, or the hierarchy between
-   "the verse" and "the same verse spelled out" disappears. */
+   Range: 1.1rem to 1.4rem, and always smaller than whatever
+   .verse-devanagari above is set to — if the two numbers get
+   close or swap, the hierarchy between "the verse" and "the
+   same verse spelled out" disappears, which is what happened
+   here before this fix (this was 1.4rem while the verse itself
+   had dropped to 1.36rem — check both together if you touch
+   either one). */
 .prose .verse-iast{
   font-family: var(--serif);
   font-style: italic;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   line-height: 1.9;
   color: var(--ink-soft);
   margin: 0 0 1.4em;
@@ -210,9 +227,9 @@
    — Duryodhana is a great tree of manyu..." Meant to be the
    quietest of the three verse pieces — a translation aid, not
    the verse itself.
-   Tweak: font-size (currently 1.25rem) — keep this the smallest
-   of the three verse-related numbers (devanagari > iast > this)
-   so the meaning reads as support, not the main text. */
+   Range: 1rem to 1.3rem, and always the smallest of the three
+   verse-related numbers (devanagari > iast > this one), so the
+   meaning reads as support, not competing text. */
 .prose .verse-gloss{
   font-family: var(--serif);
   font-style: italic;
@@ -229,9 +246,12 @@
    then just: स्कन्धः — sitting by itself. Meant to be the
    BIGGEST text on the page when it appears, since it's a
    deliberate dramatic beat.
-   Tweak: font-size (currently 1.9rem) — keep this bigger than
-   the main story text's size above it, or the "dramatic pause"
-   effect is lost and the word just blends in as normal text. */
+   Range: 1.7rem to 2.4rem, and always bigger than whatever
+   .prose p above is currently set to (1.26rem right now, or
+   1.64rem on mobile) — if this ever drops below the body text's
+   own size, the "dramatic pause" effect disappears and the word
+   just reads as normal text. Above 2.4rem it starts feeling like
+   a poster rather than a quiet beat within the story. */
 .prose .word-reveal{
   font-family: var(--dev);
   font-weight: 400;
@@ -246,8 +266,9 @@
    What: a thin horizontal line used to mark a pause between
    sub-parts of a long scene, without splitting it into
    separate pages.
-   Tweak: width (currently 120px) makes the line longer or
-   shorter. margin controls the empty space above/below it. */
+   Range: width 80px to 160px. Narrower starts looking like a
+   stray dash; wider starts reading as a full section divider
+   rather than a quiet pause. */
 .prose .section-break{
   border: none;
   border-top: 1px solid var(--rule);
@@ -259,9 +280,13 @@
 /* ── PREVIOUS / NEXT LINKS ─────────────────────────────────────
    What: the "← Previous" and "Next →" links after the story
    ends, letting a reader move to the neighboring scene.
-   Tweak: font-size , makes these links bigger
-   or smaller. gap (currently 24px) controls the space between
-   the two links. */
+   Range: 0.85rem to 1.3rem. Below 0.85rem it's hard to tap
+   comfortably on a phone; above 1.3rem it stops reading as quiet
+   navigation chrome and starts looking like body text. gap
+   (currently 24px) is safe between 12px and 40px — tighter than
+   12px and the two links crowd together, wider than 40px and
+   they start feeling like two unrelated things instead of a
+   paired previous/next control. */
 .scene-nav{
   margin-top: 48px;
   padding-top: 24px;
@@ -287,9 +312,11 @@
 /* ── END-OF-SCENE LINKS (Top / वागर्थ / महाभारतम्) ────────────
    What: the row of three quiet links right at the very end of
    the page, below Previous/Next.
-   Tweak: font-size (currently 0.88rem) makes this whole row
-   bigger or smaller. gap (currently 20px) controls spacing
-   between the three links. */
+   Range: 0.75rem to 1.15rem. Below 0.75rem these become hard to
+   tap and read; above 1.15rem this closing row starts competing
+   with the Previous/Next row right above it for attention, when
+   it's meant to read as quieter than that. gap (currently 20px)
+   is safe between 12px and 30px. */
 .scene-end-links{
   display: flex;
   justify-content: center;
@@ -315,9 +342,10 @@
 .scene-end-links .wayfinding-sep{ color: var(--rule-strong); }
 
 /* On very narrow phones, the end-links row is allowed to wrap
-   onto a second line instead of squeezing together. Tweak the
-   400px number only if it's wrapping on phones that shouldn't
-   need to, or not wrapping on ones that do. */
+   onto a second line instead of squeezing together. Range for
+   the trigger width: 340px to 460px — below 340px you'd risk it
+   never wrapping even when it needs to; above 460px it might
+   start wrapping on phones that had room to fit on one line. */
 @media (max-width: 400px){
   .scene-end-links{
     flex-wrap: wrap;
@@ -330,9 +358,10 @@
    What: a single quiet dot marking "the story just ended,"
    sitting between the last line of prose and the Previous/Next
    links, so the ending gets a small pause before navigation.
-   Tweak: font-size (currently 1rem) makes the dot bigger or
-   smaller. letter-spacing (currently 0.3em) stretches it wider
-   if you're using more than one character here. */
+   Range: 0.8rem to 1.4rem. Smaller than 0.8rem it's easy to miss
+   entirely; larger than 1.4rem it stops feeling like a quiet
+   mark and starts looking like a decoration. letter-spacing
+   (currently 0.3em) is safe between 0.15em and 0.5em. */
 .scene-end-mark{
   text-align: center;
   color: var(--gold);

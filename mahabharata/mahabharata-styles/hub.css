@@ -2,9 +2,12 @@
    Mahābhārata stream — hub page ("Itihāsa hall") additions.
    Also shared by scene pages for a few pieces (the site-links
    and mobile-wayfinding elements below).
-   Every segment has: what it is, and what to change if you
-   want a different result. Nothing here needs touching unless
-   you want to.
+   Every segment has: what it is, and a safe range to stay
+   within if you adjust it — not "currently X," since that note
+   goes stale the moment you change it. The range is the number
+   below which text starts feeling too small to read comfortably,
+   and above which it starts looking odd (crowding its neighbors,
+   overflowing its space, or losing its place in the hierarchy).
    ============================================================ */
 
 
@@ -12,9 +15,10 @@
    What: the single link back to the portal home, shown only on
    the hub page itself (mahabharata/index.html) — top-left on
    desktop, top of page on mobile.
-   Tweak: font-size (currently 0.76rem) makes it bigger/smaller.
-   Scene pages don't use this — they use .site-links below,
-   which shows two links instead of one. */
+   Range: 0.65rem to 0.95rem. Below that it's hard to read at a
+   glance; above it starts looking like body text rather than a
+   quiet corner link. Scene pages don't use this — they use
+   .site-links below, which shows two links instead of one. */
 .back-link{
   position: absolute;
   top: 28px;
@@ -36,12 +40,13 @@
    scene page (not the hub page) — one link to the portal home,
    one to this stream's hub, in the same corner spot the old
    single back-link used to occupy.
-   Tweak: font-size (currently 0.95rem) makes both links bigger
-   or smaller together. color sets their resting color before
-   you touch/hover them — currently matches the quiet ink-soft
-   tone; raise its warmth (e.g. to var(--gold)) if you want the
-   link to look "alive" even before interaction, not just gray
-   text that happens to be clickable. */
+   Range: font-size 0.85rem to 1.3rem — below that it's easy to
+   miss entirely; above it starts competing with the actual page
+   content for attention, when it's meant to sit quietly in the
+   corner. color is currently gold (var(--gold)) as its resting
+   color, not just on hover — deliberate, so the link reads as
+   "alive" immediately rather than looking like inert gray text.
+   gap (currently 16px) is safe between 6px and 24px. */
 .site-links{
   position: absolute;
   top: 28px;
@@ -52,7 +57,7 @@
   font-family: var(--dev);
   font-weight: 400;
   font-size: 1.24rem;
-   color: var(--gold);
+  color: var(--gold);
   z-index: 2;
 }
 
@@ -90,10 +95,11 @@
 /* ── HUB PAGE'S BACK-LINK, MOBILE VERSION ─────────────────────
    What: same as .back-link above, but positioned for mobile's
    normal page flow instead of a fixed corner.
-   Tweak: margin-top/margin-left control its distance from the
-   edges of the screen. padding grows its tap area without
+   Range: margin-top/margin-left control distance from the
+   screen edges — 8px to 24px keeps it close to the corner
+   without touching it. padding grows the tap area without
    changing how big the visible text looks (invisible padding,
-   not a visual size change). */
+   not a visual size change) — safe between 6px and 14px. */
 .mobile-only .back-link{
   position: static;
   display: inline-block;
@@ -110,7 +116,7 @@
    stays here in case a caption is reintroduced later. If used,
    it would merge a back-link and an image caption into one
    compact line instead of two separate lonely fragments.
-   Tweak: nothing to adjust unless you bring this back into use. */
+   Range: nothing to adjust unless you bring this back into use. */
 .mobile-wayfinding{
   display: flex;
   align-items: baseline;
@@ -145,8 +151,9 @@
    What: महाभारतम् is a longer word than वागर्थ, so it needs a
    slightly smaller starting size to sit comfortably where the
    shorter portal wordmark does.
-   Tweak: the middle number in clamp(1.7rem, 4.4vh, 2.6rem) is
-   the one to change for a bigger/smaller hub-page heading. */
+   Range: the middle vh number is safe between 3.5vh and 5.5vh.
+   Below that it looks undersized next to the portal home's own
+   wordmark; above it starts crowding the image beneath it. */
 .mbh-heading{
   font-size: clamp(1.7rem, 4.4vh, 2.6rem) !important;
 }
@@ -160,7 +167,7 @@
    cancels that shadow for this image specifically. The portal
    home's own image (Ardhanārīśvara) is a real silhouette cutout,
    so it keeps its shadow — this rule doesn't touch that one.
-   Tweak: nothing here — leave as is. */
+   Range: nothing here — leave as is. */
 .hero-left img,
 .mobile-hero img{
   filter: none !important;
@@ -171,8 +178,9 @@
    What: the small caption under the hub page's image (plays the
    same role the Kālidāsa śloka plays on the portal home, but as
    a plain caption rather than verse).
-   Tweak: the middle number in clamp(0.85rem, 1.8vh, 1rem)
-   changes this caption's size. */
+   Range: the middle vh number is safe between 1.4vh and 2.4vh
+   — smaller and it's hard to read; larger and it starts pulling
+   attention away from the image above it. */
 .hero-left .image-caption{
   font-family: var(--dev);
   font-weight: 400;
@@ -184,9 +192,11 @@
 /* ── HUB IMAGE NOTE ────────────────────────────────────────────
    What: the short italic line under the caption — currently
    "As it was first told — spoken, and set down into form."
-   Tweak: the middle number in clamp(0.85rem, 1.8vh, 0.98rem)
-   changes its size. max-width controls how soon it wraps to a
-   second line. */
+   Range: the middle vh number is safe between 1.4vh and 2.4vh,
+   same reasoning as the caption above. max-width (currently
+   320px) controls how soon it wraps — safe between 260px and
+   400px before it either wraps too eagerly or runs too wide for
+   the narrow left panel. */
 .hero-left .image-note{
   font-family: var(--serif);
   font-style: italic;
@@ -207,7 +217,7 @@
 /* ── PARVA ROW (e.g. "Ādi Parva") — the outer, biggest fold ───
    What: the top-level accordion row for a whole Parva. Clicking
    its name expands to show that Parva's episodes underneath.
-   Tweak: nothing sizing-related here — this just draws the
+   Range: nothing sizing-related here — this just draws the
    hairline rules above/below each Parva row. */
 .parva-details{
   border-top: 1px solid var(--rule);
@@ -252,8 +262,9 @@
 }
 
 /* ── PARVA NAME (e.g. "Ādi Parva") ─────────────────────────────
-   Tweak: font-size (currently 1.5rem) makes the Parva's English
-   name bigger or smaller. */
+   Range: 1.3rem to 1.9rem. Below that it undersells the Parva
+   as the top of the hierarchy; above it starts crowding the
+   Devanagari name beside it or wrapping awkwardly. */
 .parva-name{
   font-family: var(--serif);
   font-style: italic;
@@ -264,9 +275,9 @@
 }
 
 /* ── PARVA NAME, DEVANAGARI (e.g. "आदिपर्व") ───────────────────
-   Tweak: font-size (currently 1.05rem) changes just the
-   Devanagari version's size, independent of the English name
-   beside it. */
+   Range: 0.85rem to 1.3rem, independent of the English name
+   beside it — keep it noticeably smaller than .parva-name above
+   so the English title stays the primary label. */
 .parva-dev{
   font-family: var(--dev);
   font-weight: 400;
@@ -280,7 +291,8 @@
 }
 
 /* ── PARVA STATUS LABEL (e.g. "IN PROGRESS · PARVA 01") ───────
-   Tweak: font-size (currently 0.7rem) changes this small label. */
+   Range: 0.6rem to 0.85rem. Below that it's illegible; above it
+   starts competing with the Parva name itself for attention. */
 .parva-status{
   font-family: var(--sans);
   font-size: 0.7rem;
@@ -295,7 +307,7 @@
    What: the second-level accordion row, nested inside a Parva,
    for a single Episode. Same disclosure mechanism as Parva rows
    above, just smaller and indented under it.
-   Tweak: nothing sizing-related on this outer wrapper. */
+   Range: nothing sizing-related on this outer wrapper. */
 .episode-details{
   border-left: 2px solid var(--rule-strong);
   padding-left: 22px;
@@ -337,7 +349,9 @@
 }
 
 /* ── EPISODE NUMBER LABEL (e.g. "EPISODE 1") ──────────────────
-   Tweak: font-size (currently 0.72rem) changes this small label. */
+   Range: 0.6rem to 0.85rem — same reasoning as the Parva status
+   label above; this sits one level down in the hierarchy from
+   .parva-name, so keep it clearly smaller than that. */
 .episode-num{
   font-family: var(--sans);
   font-size: 0.72rem;
@@ -351,7 +365,9 @@
    were dropped in favor of showing bare "Episode 1" / "Episode
    2" — see the note in ARCHITECTURE.md), but the styling stays
    here in case a named episode title is reintroduced later.
-   Tweak: font-size (currently 1.2rem) if brought back into use. */
+   Range: 1.05rem to 1.5rem if brought back into use — keep it
+   smaller than .parva-name, since an Episode sits one level
+   down from its Parva. */
 .episode-name{
   font-family: var(--serif);
   font-style: italic;
@@ -381,7 +397,8 @@
    What: currently unused — episode/scene synopsis text was
    removed from the hub listing per an earlier decision (only
    the scene names show now, no summary paragraph). Styling kept
-   in case a description is reintroduced later. */
+   in case a description is reintroduced later.
+   Range: 0.9rem to 1.2rem if brought back into use. */
 .episode-desc{
   margin: 0 0 12px;
   max-width: 560px;
@@ -403,9 +420,11 @@
 /* ── SCENE LINK ROW (e.g. "Scene 1 · The Storyteller") ────────
    What: each individual clickable scene entry inside an
    expanded Episode.
-   Tweak: padding (currently 8px top/bottom, 10px sides) is the
-   clickable area's size — the @media rule below already makes
-   this bigger specifically on phones for easier tapping. */
+   Range: padding (currently 8px top/bottom, 10px sides) is the
+   clickable area's size on desktop — safe between 4px and 16px
+   vertically; the @media rule below already makes this bigger
+   specifically on phones for easier tapping, so this desktop
+   value can stay tighter. */
 .scene-link{
   display: block;
   text-decoration: none;
@@ -417,7 +436,9 @@
 }
 
 /* on phones, scene links get extra vertical padding — bigger,
-   easier tap target than the desktop version above. */
+   easier tap target than the desktop version above. Range: 10px
+   to 20px — below 10px taps get error-prone on a phone; above
+   20px scenes take up too much scroll distance in a long list. */
 @media (max-width: 880px){
   .scene-link{ padding: 14px 10px; }
 }
@@ -442,8 +463,9 @@
 }
 
 /* ── SCENE LABEL TEXT (e.g. "Scene 3 · The Mahābhārata Within") ─
-   Tweak: font-size (currently 0.82rem) makes every scene's
-   listed name bigger or smaller, across every Episode. */
+   Range: 0.7rem to 1rem. Below that it's hard to read; above it
+   starts feeling too prominent for what's meant to be a compact
+   list of many scenes at once. */
 .scene-label{
   display: inline-flex;
   align-items: center;
@@ -467,7 +489,8 @@
    listed but doesn't exist yet (not currently used anywhere,
    since new scenes now get predictive links instead — kept
    here in case a true "nothing built yet" placeholder is
-   needed again in future). */
+   needed again in future). Same range as .scene-label above,
+   since it sits in the same list. */
 .scene-pending{
   display: block;
   font-family: var(--sans);
@@ -481,7 +504,10 @@
    What: the italic line at the very bottom of the Itihāsa Hall
    listing — currently "Further episodes are being held in
    reserve until they're ready."
-   Tweak: font-size (currently 0.82rem) changes its size. */
+   Range: 0.7rem to 1rem. Below that it's easy to miss entirely,
+   which is fine for a closing note but not if it becomes
+   illegible; above it starts looking like it belongs to the
+   scene list above rather than closing it out. */
 .reserve-note{
   margin-top: 20px;
   font-family: var(--sans);
